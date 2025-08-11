@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootcamp Project Tracker</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="tasks"></div>
+    <button id="btn">Add Project</button>
+    <div id="formContainer" style="display:none;">
+        <h3>Add Project</h3>
+        <form id="projectForm">
+            <input type="text" id="studentName" placeholder="Student Name" required>
+            <input type="text" id="projectName" placeholder="Project Name" required>
+            <input type="text" id="description" placeholder="Description" required>
+            <input type="text" id="status" placeholder="Status" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+   
+    <div id="updateFormContainer" style="display:none;">
+        <h3>Update Project</h3>
+        <form id="updateProjectForm">
+            <input type="hidden" id="updateProjectId">
+            <input type="text" id="updateStudentName" placeholder="Student Name" required>
+            <input type="text" id="updateProjectName" placeholder="Project Name" required>
+            <input type="text" id="updateStatus" placeholder="Status" required>
+            <button type="submit">Update</button>
+        </form>
+
+    </div>
+    <script src="main.js" ></script>
+</body>
+</html>
