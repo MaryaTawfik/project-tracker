@@ -11,7 +11,7 @@ btn.addEventListener("click", () => {
 });
 
 projectForm.addEventListener("submit", async (e) => {
-//   e.preventDefault();
+  e.preventDefault();
   const data = {
     studentName: document.getElementById("studentName").value,
     projectName: document.getElementById("projectName").value,
@@ -56,6 +56,7 @@ const displayProjects = async () => {
 
     projects.forEach((project) => {
       const projectDiv = document.createElement("div");
+      projectDiv.classList.add("project-card");
       projectDiv.innerHTML = `
                 <h2>Student name: ${project.studentName}</h2>
                 <h3>Project name: ${project.projectName}</h3>
