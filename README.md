@@ -5,7 +5,8 @@ A responsive web application to track student projects during a coding bootcamp.
 ---
 
 ## 📸 UI Behavior
-(./assets/screenshots/ui.png)
+![UI Overview](./assets/screenshots/ui.png)
+
 ### ➕ Add Project
 ![Add Project Form](./assets/screenshots/add-form.png)
 _When "Add Project" is clicked, a form appears allowing users to input project details._
@@ -44,7 +45,7 @@ _Clicking "Delete" removes the selected project card from the tracker._
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/project-tracker.git
+   git clonehttps://github.com/MaryaTawfik/project-tracker.git
    cd project-tracker
 Install backend dependencies:
 
