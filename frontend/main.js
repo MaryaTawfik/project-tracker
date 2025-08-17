@@ -5,6 +5,7 @@ const tasks = document.getElementById("tasks");
 const updateFormContainer = document.getElementById("updateFormContainer");
 const updateProjectForm = document.getElementById("updateProjectForm");
 
+
 btn.addEventListener("click", () => {
   formContainer.style.display =
     formContainer.style.display === "none" ? "block" : "none";
@@ -49,8 +50,6 @@ const displayProjects = async () => {
     }
 
     const data = await response.json();
-    console.log("Fetched projects:", data);
-
     const projects = Array.isArray(data) ? data : data.projects;
     tasks.innerHTML = "";
 
@@ -58,15 +57,13 @@ const displayProjects = async () => {
       const projectDiv = document.createElement("div");
       projectDiv.classList.add("project-card");
       projectDiv.innerHTML = `
-                <h2>Student name: ${project.studentName}</h2>
-                <h3>Project name: ${project.projectName}</h3>
-                <p>Status: ${project.status}</p>
-                <p>Description: ${
-                  project.description || "No description provided"
-                }</p>
-                <button onclick="deleteProject(${project.id})">Delete</button>
-                <button onclick="showUpdateForm(${project.id})">Update</button>
-            `;
+        <h2>Student name: ${project.studentName}</h2>
+        <h3>Project name: ${project.projectName}</h3>
+        <p>Status: ${project.status}</p>
+        <p>Description: ${project.description || "No description provided"}</p>
+        <button onclick="deleteProject('${project._id}')">Delete</button>
+        <button onclick="showUpdateForm('${project._id}')">Update</button>
+      `;
       tasks.appendChild(projectDiv);
     });
   } catch (error) {
@@ -83,6 +80,7 @@ const deleteProject = async (id) => {
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
+
     displayProjects();
   } catch (error) {
     console.log("Error:", error);
@@ -90,25 +88,40 @@ const deleteProject = async (id) => {
 };
 
 const showUpdateForm = async (id) => {
-  const response = await fetch(`http://localhost:3000/api/projects/${id}`);
-  const project = await response.json();
+  try {
+    const response = await fetch(`http://localhost:3000/api/projects/${id}`);
+    const project = await response.json();
 
-  document.getElementById("updateProjectId").value = project.id;
-  document.getElementById("updateStudentName").value = project.studentName;
-  document.getElementById("updateProjectName").value = project.projectName;
-  document.getElementById("updateStatus").value = project.status;
+    document.getElementById("updateProjectId").value = project._id;
+    document.getElementById("updateStudentName").value = project.studentName;
+    document.getElementById("updateProjectName").value = project.projectName;
+    document.getElementById("updateStatus").value = project.status;
 
-  updateFormContainer.style.display = "block";
+    
+    if (document.getElementById("updateDescription")) {
+      document.getElementById("updateDescription").value =
+        project.description || "";
+    }
+
+    updateFormContainer.style.display = "block";
+  } catch (error) {
+    console.log("Error loading project:", error);
+  }
 };
 
 updateProjectForm.addEventListener("submit", async (e) => {
   e.preventDefault();
+
   const id = document.getElementById("updateProjectId").value;
   const updatedData = {
     studentName: document.getElementById("updateStudentName").value,
     projectName: document.getElementById("updateProjectName").value,
     status: document.getElementById("updateStatus").value,
   };
+
+  if (document.getElementById("updateDescription")) {
+    updatedData.description = document.getElementById("updateDescription").value;
+  }
 
   try {
     const response = await fetch(`http://localhost:3000/api/projects/${id}`, {
@@ -122,10 +135,11 @@ updateProjectForm.addEventListener("submit", async (e) => {
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
+
     displayProjects();
     updateFormContainer.style.display = "none";
   } catch (error) {
-    console.log("Error:", error);
+    console.log("Error updating project:", error);
   }
 });
 
