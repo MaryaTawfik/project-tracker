@@ -56,7 +56,7 @@
 //     updateProject, 
 // };
 const projectService = require('../services/projectService');
-
+const mongoose = require('mongoose');
 const getAllProj = async (req, res) => {
   try {
     const result = await projectService.getAllProjects();
@@ -107,7 +107,7 @@ const remove = async (req, res) => {
   }
 };
 
-const mongoose = require('mongoose');
+
 
 const updateProject = async (req, res) => {
   try {
