@@ -53,6 +53,7 @@ const startServer = async () => {
     const port = process.env.PORT || 3000;
     app.listen(port, () => {
       console.log(`🚀 ${process.env.APP_NAME} running on port ${port}`);
+      console.log("hi")
     });
   } catch (err) {
     console.error('❌ MongoDB connection error:', err);
@@ -61,3 +62,4 @@ const startServer = async () => {
 };
 
 startServer();
+
